@@ -101,21 +101,23 @@ def getFirstLines(game):
 
 def startGame(title):
     print(f"\n\n\nSPAWN GAME CALLED\n {title}\n\n\n")
+    current_path = os.path.dirname(os.path.abspath(__file__))
+    print(current_path)
     if (title == 'hike'):
-        game = pexpect.spawn('/home/J3lanzone/frotz/dfrotz -mp /home/J3lanzone/Games/HitchHikers/hhgg.z3')
+        game = pexpect.spawn('frotz -mp ' + current_path + '/Games/HitchHikers/hhgg.z3')
     elif (title == 'spell'):
-        game = pexpect.spawn('/home/J3lanzone/frotz/dfrotz -mp /home/J3lanzone/Games/Spellbreaker/spellbre.dat')
+        game = pexpect.spawn('frotz -mp ' + current_path + '/Games/Spellbreaker/spellbre.dat')
     elif (title == 'wish'):
-        game = pexpect.spawn('/home/J3lanzone/frotz/dfrotz -mp /home/J3lanzone/Games/Wishbringer/wishbrin.dat')
+        game = pexpect.spawn('frotz -mp ' + current_path + '/Games/Wishbringer/wishbrin.dat')
     elif (title == 'zork1'):
-        game = pexpect.spawn('/home/J3lanzone/frotz/dfrotz -mp /home/J3lanzone/Games/Zork1/zork1.z5')
+        game = pexpect.spawn('frotz -mp ' + current_path + '/Games/Zork1/zork1.z5')
     elif (title == 'zork2'):
-        game = pexpect.spawn('/home/J3lanzone/frotz/dfrotz -mp /home/J3lanzone/Games/Zork2/zork2.dat')
+        game = pexpect.spawn('frotz -mp ' + current_path + '/Games/Zork2/zork2.dat')
     elif (title == 'zork3'):
-        game = pexpect.spawn('/home/J3lanzone/frotz/dfrotz -mp /home/J3lanzone/Games/Zork3/ZORK3.DAT')
+        game = pexpect.spawn('frotz -mp ' + current_path + '/Games/Zork3/ZORK3.DAT')
     else:
         print("miss")
-        game = pexpect.spawn('/home/J3lanzone/frotz/dfrotz -mp /home/J3lanzone/Games/Zork1/zork1.z5')
+        game = pexpect.spawn('frotz -mp ' + current_path + '/Games/Zork1/zork1.z5')
         title = 'zork1'
 
     return (game, title)
@@ -165,11 +167,11 @@ def newGame():
         os.remove(f"./{email}.{title}.AutoSave")
         profiles[email][title].remove("AutoSave")
 
-    try:
-        titleInfo, firstLine = getFirstLines(game)
-        saveGame(profiles, f"{email}.{title}.AutoSave", game)
-    except:
-        print ("import broke somehow...")
+    # try:
+    titleInfo, firstLine = getFirstLines(game)
+    saveGame(profiles, f"{email}.{title}.AutoSave", game)
+    # except:
+        # print ("import broke somehow...")
     
     userProfile = profiles[email]
     print(f"titleInfo: {titleInfo}, firstLine: {firstLine}, userProfile: {userProfile}")
@@ -270,4 +272,4 @@ def save():
 
 if __name__ == "__main__":
     #start()
-    app.run(host='0.0.0.0', port=443)
+    app.run(host='0.0.0.0', port=8443)
